@@ -1,73 +1,68 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>POC DataTable</title>
-<head>
-    <!-- VENDOR JS -->
+<head><title>POC DataTable</title>
+<head><!-- VENDOR JS -->
     <script src="js/vendor/jquery.min.js"></script>
+    <script src="js/vendor/jqui/js/jquery-ui-1.8.24.custom.min.js"></script>
     <script src="js/vendor/jquery.currency.js"></script>
+    <script src="js/vendor/tipTipv13/jquery.tipTip.js"></script>
     <script src="js/vendor/angular-1.0.2/angular.js"></script>
     <script src="js/vendor/underscore/underscore-min.js"></script>
-
+    <link type="text/css" rel="stylesheet" href="js/vendor/jqui/css/ui-lightness/jquery-ui-1.8.24.custom.css"/>
+    <link type="text/css" rel="stylesheet" href="js/vendor/tipTipv13/tipTip.css"/>
     <!-- CUSTOM CONTENT -->
     <script src="js/controller.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/fonts.css">
     <link type="text/css" rel="stylesheet" href="css/dt.css">
 </head>
-
 <body ng-app="dt">
-<div ng-controller="DataTableCtrl">
-    <div class="row">
-        <div class="cell cell-head cell-short" ng-click="col='userTransactionId'">
-            ID
-        </div><div class="cell cell-head cell-long" ng-click="col='description'">
-            description
-        </div><div class="cell  cell-head" ng-click="col='cat_type'">
-            category
-        </div><div class="cell cell-head" ng-click="col='amount'">
-            amount
-        </div>
-    </div>
-    <div ng-repeat="row in data| orderBy: col" class="row">
-        <div ng-switch on="row.flyout">
-            <div ng-switch-when="1" class="flyout"  id="flyout-{{row.userTransactionId}}">
-                flyout for {{row.userTransactionId }}
-                for {{row.userTransactionId }}. label: <input type="text" ng-model="row.description"/>
+<div ng-controller="DataTableCtrl"><p><b>Search:</b><input type="text" ng-model="search"/></p>
 
-                Transaction Category:
-                <select autocomplete="off" ng-model="row.category"
-                        ng-options="i.name for i in categories | cat_of_type:row.category.type">
-                        >
+    <div class="row ui-helper-clearfix ">
+        <div ng-class="head_style('cell cell-head cell-long', 'description')" ng-click="sort_col('description')">
+            <div class="cell-head-inner">
+                Description
+            </div>
+            </div>
+        <div ng-class="head_style('cell cell-head', 'category_name')" ng-click="sort_col('category_name')">
+            <div class="cell-head-inner">Category</div></div>
+        <div ng-class="head_style('cell cell-head cell-short', 'amount')" ng-click="sort_col('amount')">
+            <div class="cell-head-inner">Amount</div></div>
+        <div class="cell cell-head" >&nbsp;</div>
+    </div>
+    <div ng-repeat="row in data | filter:search | orderBy: col:rev " class="row ui-helper-clearfix">
+        <div ng-switch on="row.flyout">
+            <div ng-switch-when="1" class="flyout"
+                 id="flyout-{{row.userTransactionId}}">flyout for {{row.userTransactionId }}
+                for {{row.userTransactionId }}. label:<input type="text" ng-model="row.description"/>Transaction
+                Category:<select autocomplete="off" ng-model="row.category"
+                                 ng-change="update_cat()"
+                                 ng-options="i.name for i in categories">
                     <option></option>
                 </select>
-
                 <button ng-click="flyout_done(row)">Done</button>
             </div>
-            <div ng-switch-default>
-                <div class="cell cell-short">
-                    {{ row.userTransactionId }}
-                </div><div class="cell cell-long">
-                    {{ row.description }}
-                </div><div class="cell">
-                {{row.category.transactionCategoryId}}:
+            <div ng-switch-default ng-click="fly_me(row)">
+                <div class="cell cell-long tt" title="{{ row.userTransactionId }}">{{ row.description |cut:1:40:'...' }}</div>
+                <div class="cell">{{row.category.transactionCategoryId}}:
                     {{row.category.name }}
-                </div><div class="cell r ">
-                    {{ row.amount | currency }}
-                </div><div class="cell">
-                    <button ng-click="fly_me(row)">Flyout</button>
                 </div>
+                <div class="cell cell-short r">{{ row.amount | currency }}</div>
             </div>
         </div>
     </div>
+    <br clear="both"/>
 
     <h3>(reference) categories</h3>
+
     <table>
         <thead>
-        <tr><th>ID</th>
+        <tr>
+            <th>ID</th>
             <th>Name</th>
             <th>Type</th>
         </tr>
         </thead>
-
         <tbody>
         <tr ng-repeat=" row in categories">
             <td>{{ row.transactionCategoryId }}</td>
