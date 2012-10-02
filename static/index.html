@@ -17,32 +17,27 @@
 <body ng-app="dt">
 <div ng-controller="DataTableCtrl">
     <div class="row">
-        <div class="cell cell-short" ng-click="col='userTransactionId'">
+        <div class="cell cell-head cell-short" ng-click="col='userTransactionId'">
             ID
-        </div>
-        <div class="cell" ng-click="col='description'">
+        </div><div class="cell cell-head cell-long" ng-click="col='description'">
             description
-        </div>
-        <div class="cell" ng-click="col='cat_type'">
+        </div><div class="cell  cell-head" ng-click="col='cat_type'">
             category
-        </div>
-        <div class="cell" ng-click="col='amount'">
+        </div><div class="cell cell-head" ng-click="col='amount'">
             amount
         </div>
     </div>
     <div ng-repeat="row in data| orderBy: col" class="row">
         <div ng-switch on="row.flyout">
-            <div ng-switch-when="1">
+            <div ng-switch-when="1" class="flyout"  id="flyout-{{row.userTransactionId}}">
                 flyout for {{row.userTransactionId }}
                 for {{row.userTransactionId }}. label: <input type="text" ng-model="row.description"/>
 
                 Transaction Category:
-                <select autocomplete="off" ng-model="row.category.transactionCategoryId"
-                        ng-change="type_to_data(row)"
+                <select autocomplete="off" ng-model="row.category"
+                        ng-options="i.name for i in categories | cat_of_type:row.category.type">
                         >
-                    <option ng-repeat="c in categories | foo:row.category.type"       ng-selected="row.category.transactionCategoryID == c.transactionCateogryId"
-                            >{{c.name }}
-                    </option>
+                    <option></option>
                 </select>
 
                 <button ng-click="flyout_done(row)">Done</button>
@@ -50,22 +45,37 @@
             <div ng-switch-default>
                 <div class="cell cell-short">
                     {{ row.userTransactionId }}
-                </div>
-                <div class="cell">
+                </div><div class="cell cell-long">
                     {{ row.description }}
-                </div>
-                <div class="cell">
-                    {{row.cat_type }}
-                </div>
-                <div class="cell">
+                </div><div class="cell">
+                {{row.category.transactionCategoryId}}:
+                    {{row.category.name }}
+                </div><div class="cell r ">
                     {{ row.amount | currency }}
-                </div>
-                <div class="cell">
+                </div><div class="cell">
                     <button ng-click="fly_me(row)">Flyout</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <h3>(reference) categories</h3>
+    <table>
+        <thead>
+        <tr><th>ID</th>
+            <th>Name</th>
+            <th>Type</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr ng-repeat=" row in categories">
+            <td>{{ row.transactionCategoryId }}</td>
+            <td>{{ row.name }}</td>
+            <td>{{ row.type }}</td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

@@ -1,17 +1,58 @@
-
 .row {
     width: 100%;
     border-top: 1px solid black;
+    margin: 0px;
+    padding: 0px;
+}
+
+.row div {
+    margin: 0px;
+    padding: 0px;
 }
 
 .row .cell {
     width: 20%;
-    display: inline-block
+    display: inline-block;
+    margin: 0px;
+    padding: 0px;
+    height: 1.5em
 }
 
 .row .cell-short {
     width: 8%
 }
+
+.row .cell-medium {
+    width: 12%
+}
+
+.row .cell-long {
+    width: 30%
+}
+
+.row .cell-head {
+    font-weight: bold;
+    text-align: center;
+    background: #e2e2e2; /* Old browsers */
+    background: -moz-linear-gradient(top, #e2e2e2 0%, #d1d1d1 38%, #dbdbdb 55%, #fefefe 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e2e2e2), color-stop(38%, #d1d1d1), color-stop(55%, #dbdbdb), color-stop(100%, #fefefe)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #e2e2e2 0%, #d1d1d1 38%, #dbdbdb 55%, #fefefe 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #e2e2e2 0%, #d1d1d1 38%, #dbdbdb 55%, #fefefe 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #e2e2e2 0%, #d1d1d1 38%, #dbdbdb 55%, #fefefe 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #e2e2e2 0%, #d1d1d1 38%, #dbdbdb 55%, #fefefe 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#e2e2e2', endColorstr = '#fefefe', GradientType = 0); /* IE6-9 */
+
+}
 .row .callout {
     width: auto
+}
+
+.row .flyout {
+    border: 1px solid #933;
+    background-color: rgb(255, 245, 240);
+    overflow: hidden;
+}
+
+.r {
+    text-align: right;
 }

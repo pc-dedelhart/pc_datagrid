@@ -1,7 +1,7 @@
 {"spHeader":{
-	"SP_HEADER_VERSION":3882206,
+	"SP_HEADER_VERSION":3892985,
 	"username":"testid2@safepage.com",
-	"deviceName":"DEPC",
+	"deviceName":"Mac OS X Chrome #39",
 	"qualifiedLead":true,
 	"accountsMetaData":["HAS_ON_US", "HAS_CASH", "HAS_INVESTMENT", "HAS_CREDIT"],
 	"status":"ACTIVE",
@@ -337,8 +337,11 @@
 		"symbol":"",
 		"memo":"",
 		"merchant":"",
-		"status":"pending",
+		"status":"posted",
 		"categoryId":0,
+		"userValues":{
+			"description":"Transfer"
+		},
 		"checkNumber":"",
 		"holdingType":"",
 		"type":{
@@ -352,23 +355,23 @@
 		"runningBalance":0.0,
 		"amount":75.0,
 		"lotHandling":"",
-		"simpleDescription":"Recurring Transfer Ref #opexjspy9p",
+		"simpleDescription":"Recurring Transfer Ref #opexjspy9p To Savings Xxxxxx6997",
 		"category":{
-			"transactionCategoryId":56,
-			"name":"Uncategorized",
+			"transactionCategoryId":54,
+			"name":"Transfers",
 			"yodleeMetadata":{
-				"localizedCategoryName":"Uncategorized",
+				"localizedCategoryName":"Transfers",
 				"isHidden":"false",
 				"categoryLevelId":"3",
-				"isBudgetable":"0"
+				"isBudgetable":"1"
 			},
-			"type":"UNCATEGORIZED"
+			"type":"TRANSFER"
 		},
 		"price":0.0,
-		"description":"Recurring Transfer Ref #opexjspy9p",
+		"description":"Recurring Transfer Ref #opexjspy9p To Savings Xxxxxx6997",
 		"resultType":"aggregated",
 		"userAccountId":15393,
-		"userTransactionId":1614517
+		"userTransactionId":1615749
 	},
 	{
 		"cusipNumber":"",
@@ -1066,9 +1069,12 @@
 		"netCost":0.0,
 		"symbol":"",
 		"memo":"",
-		"merchant":"",
-		"status":"pending",
+		"merchant":"Transfer",
+		"status":"posted",
 		"categoryId":0,
+		"userValues":{
+			"description":"Transfer"
+		},
 		"checkNumber":"",
 		"holdingType":"",
 		"type":{
@@ -1082,23 +1088,24 @@
 		"runningBalance":0.0,
 		"amount":75.0,
 		"lotHandling":"",
-		"simpleDescription":"Recurring Transfer Ref #opexjspy9p",
+		"catKeyword":"Transfer",
+		"simpleDescription":"Transfer",
 		"category":{
-			"transactionCategoryId":56,
-			"name":"Uncategorized",
+			"transactionCategoryId":54,
+			"name":"Transfers",
 			"yodleeMetadata":{
-				"localizedCategoryName":"Uncategorized",
+				"localizedCategoryName":"Transfers",
 				"isHidden":"false",
 				"categoryLevelId":"3",
-				"isBudgetable":"0"
+				"isBudgetable":"1"
 			},
-			"type":"UNCATEGORIZED"
+			"type":"TRANSFER"
 		},
 		"price":0.0,
-		"description":"Recurring Transfer Ref #opexjspy9p",
+		"description":"Recurring Transfer Ref #opexjspy9p From Preferred Checking Xxxxxx0063",
 		"resultType":"aggregated",
 		"userAccountId":15394,
-		"userTransactionId":1614518
+		"userTransactionId":1615750
 	},
 	{
 		"cusipNumber":"",
@@ -1754,49 +1761,6 @@
 		"memo":"",
 		"merchant":"",
 		"status":"posted",
-		"categoryId":23,
-		"userValues":{
-			"description":"Principal Pmt ( Details)"
-		},
-		"checkNumber":"",
-		"holdingType":"",
-		"type":{
-			"includeInCashManager":true,
-			"name":"Credit",
-			"investmentGroup":"NA",
-			"creditOrDebit":"CREDIT"
-		},
-		"transactionDate":1346914800000,
-		"currency":"USD",
-		"runningBalance":0.0,
-		"amount":104.39,
-		"lotHandling":"",
-		"catKeyword":"Principal Pmt",
-		"simpleDescription":"",
-		"category":{
-			"transactionCategoryId":26,
-			"name":"Office Supplies",
-			"yodleeMetadata":{
-				"localizedCategoryName":"Office Supplies",
-				"isHidden":"false",
-				"categoryLevelId":"3",
-				"isBudgetable":"1"
-			},
-			"type":"EXPENSE"
-		},
-		"price":0.0,
-		"description":"Principal Pmt ( Details)",
-		"resultType":"aggregated",
-		"userAccountId":15396,
-		"userTransactionId":1569227
-	},
-	{
-		"cusipNumber":"",
-		"netCost":0.0,
-		"symbol":"",
-		"memo":"",
-		"merchant":"",
-		"status":"posted",
 		"categoryId":0,
 		"checkNumber":"",
 		"holdingType":"",
@@ -1837,7 +1801,10 @@
 		"memo":"",
 		"merchant":"",
 		"status":"posted",
-		"categoryId":0,
+		"categoryId":23,
+		"userValues":{
+			"description":"Principal Pmt ( Details)"
+		},
 		"checkNumber":"",
 		"holdingType":"",
 		"type":{
@@ -1846,7 +1813,7 @@
 			"investmentGroup":"NA",
 			"creditOrDebit":"CREDIT"
 		},
-		"transactionDate":1345014000000,
+		"transactionDate":1346914800000,
 		"currency":"USD",
 		"runningBalance":0.0,
 		"amount":104.39,
@@ -1854,10 +1821,10 @@
 		"catKeyword":"Principal Pmt",
 		"simpleDescription":"",
 		"category":{
-			"transactionCategoryId":23,
-			"name":"Loans",
+			"transactionCategoryId":26,
+			"name":"Office Supplies",
 			"yodleeMetadata":{
-				"localizedCategoryName":"Loans",
+				"localizedCategoryName":"Office Supplies",
 				"isHidden":"false",
 				"categoryLevelId":"3",
 				"isBudgetable":"1"
@@ -1868,7 +1835,7 @@
 		"description":"Principal Pmt ( Details)",
 		"resultType":"aggregated",
 		"userAccountId":15396,
-		"userTransactionId":1555699
+		"userTransactionId":1569227
 	},
 	{
 		"cusipNumber":"",
@@ -1926,7 +1893,7 @@
 			"investmentGroup":"NA",
 			"creditOrDebit":"CREDIT"
 		},
-		"transactionDate":1342594800000,
+		"transactionDate":1345014000000,
 		"currency":"USD",
 		"runningBalance":0.0,
 		"amount":104.39,
@@ -1948,7 +1915,7 @@
 		"description":"Principal Pmt ( Details)",
 		"resultType":"aggregated",
 		"userAccountId":15396,
-		"userTransactionId":1555701
+		"userTransactionId":1555699
 	},
 	{
 		"cusipNumber":"",
@@ -1989,6 +1956,46 @@
 		"resultType":"aggregated",
 		"userAccountId":15396,
 		"userTransactionId":1555700
+	},
+	{
+		"cusipNumber":"",
+		"netCost":0.0,
+		"symbol":"",
+		"memo":"",
+		"merchant":"",
+		"status":"posted",
+		"categoryId":0,
+		"checkNumber":"",
+		"holdingType":"",
+		"type":{
+			"includeInCashManager":true,
+			"name":"Credit",
+			"investmentGroup":"NA",
+			"creditOrDebit":"CREDIT"
+		},
+		"transactionDate":1342594800000,
+		"currency":"USD",
+		"runningBalance":0.0,
+		"amount":104.39,
+		"lotHandling":"",
+		"catKeyword":"Principal Pmt",
+		"simpleDescription":"",
+		"category":{
+			"transactionCategoryId":23,
+			"name":"Loans",
+			"yodleeMetadata":{
+				"localizedCategoryName":"Loans",
+				"isHidden":"false",
+				"categoryLevelId":"3",
+				"isBudgetable":"1"
+			},
+			"type":"EXPENSE"
+		},
+		"price":0.0,
+		"description":"Principal Pmt ( Details)",
+		"resultType":"aggregated",
+		"userAccountId":15396,
+		"userTransactionId":1555701
 	},
 	{
 		"cusipNumber":"",
@@ -2049,46 +2056,6 @@
 		"transactionDate":1340002800000,
 		"currency":"USD",
 		"runningBalance":0.0,
-		"amount":104.39,
-		"lotHandling":"",
-		"catKeyword":"Principal Pmt",
-		"simpleDescription":"",
-		"category":{
-			"transactionCategoryId":23,
-			"name":"Loans",
-			"yodleeMetadata":{
-				"localizedCategoryName":"Loans",
-				"isHidden":"false",
-				"categoryLevelId":"3",
-				"isBudgetable":"1"
-			},
-			"type":"EXPENSE"
-		},
-		"price":0.0,
-		"description":"Principal Pmt ( Details)",
-		"resultType":"aggregated",
-		"userAccountId":15396,
-		"userTransactionId":1555704
-	},
-	{
-		"cusipNumber":"",
-		"netCost":0.0,
-		"symbol":"",
-		"memo":"",
-		"merchant":"",
-		"status":"posted",
-		"categoryId":0,
-		"checkNumber":"",
-		"holdingType":"",
-		"type":{
-			"includeInCashManager":true,
-			"name":"Credit",
-			"investmentGroup":"NA",
-			"creditOrDebit":"CREDIT"
-		},
-		"transactionDate":1340002800000,
-		"currency":"USD",
-		"runningBalance":0.0,
 		"amount":2895.61,
 		"lotHandling":"",
 		"catKeyword":"Payment",
@@ -2109,6 +2076,46 @@
 		"resultType":"aggregated",
 		"userAccountId":15396,
 		"userTransactionId":1555703
+	},
+	{
+		"cusipNumber":"",
+		"netCost":0.0,
+		"symbol":"",
+		"memo":"",
+		"merchant":"",
+		"status":"posted",
+		"categoryId":0,
+		"checkNumber":"",
+		"holdingType":"",
+		"type":{
+			"includeInCashManager":true,
+			"name":"Credit",
+			"investmentGroup":"NA",
+			"creditOrDebit":"CREDIT"
+		},
+		"transactionDate":1340002800000,
+		"currency":"USD",
+		"runningBalance":0.0,
+		"amount":104.39,
+		"lotHandling":"",
+		"catKeyword":"Principal Pmt",
+		"simpleDescription":"",
+		"category":{
+			"transactionCategoryId":23,
+			"name":"Loans",
+			"yodleeMetadata":{
+				"localizedCategoryName":"Loans",
+				"isHidden":"false",
+				"categoryLevelId":"3",
+				"isBudgetable":"1"
+			},
+			"type":"EXPENSE"
+		},
+		"price":0.0,
+		"description":"Principal Pmt ( Details)",
+		"resultType":"aggregated",
+		"userAccountId":15396,
+		"userTransactionId":1555704
 	},
 	{
 		"cusipNumber":"",
