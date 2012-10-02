@@ -1,0 +1,118 @@
+<h1>Action Structure</h1>
+<p class="text">
+    Nuby actions expose methods
+    that represent major benchmarks in the execution cycle:
+</p>
+<div class="row">
+    <div class="span4">
+        <ul class="appear">
+            <li>Validation</li>
+            <li>Request/Database Input</li>
+            <li>Data Processing, Updating</li>
+            <li>Output (rendering, REST data return)</li>
+        </ul>
+        <p class="text appear">
+            Errors are emitted out, providing useful trap points for expected errors
+        </p>
+
+        <p class="text appear">Actions can be unit tested
+            in the absence of the full stack,
+            providing very fast test execution</p>
+
+    </div>
+    <div class="span8">
+       <pre class="pre-scrollable appear" style="max-height: 400px">
+        var _ = require('underscore');
+        var util = require('util');
+        var fs = require('fs');
+
+        /* *************** MODULE ********* */
+
+        module.exports = {
+
+            model:function () {
+                return this.models.member_role;
+            },
+
+            /* ************* GET ************** */
+
+
+            <b>on_get_validate</b>:function (rs) {
+                var self = this;
+                this.models.member.can(rs, ['admin site'], function (err, can) {
+                    if (err) {
+                        <i>self.emit('validate_error', rs, err);</i>
+                    } else if (can) {
+                        self.<b>on_get_input</b>(rs);
+                    } else {
+                       <i>self.emit('validate_error', rs, 'you are not authorized to see this page')</i>
+                    }
+                })
+            },
+
+            <b>on_get_input</b>:function (rs) {
+                var self = this;
+                this.model().get_role(rs.req_props.name, function (err, role) {
+                    if (err) {
+                           <i>self.emit('input_error', rs, err);</i>
+                    } else if (role) {
+                        self.model().role_task_options(role, function (err2, tasks) {
+                            if (err2) {
+                                <i>self.emit('input_error', rs, err2);</i>
+                            } else {
+                                self.<b>on_get_process</b>(rs, role, tasks);
+                            }
+                        })
+                    } else {
+                        <i>self.emit('input_error', rs, 'cannot get role ' + this.req_props.name);</i>
+                    }
+
+                })
+            },
+
+            <b>on_get_process</b>:function (rs, role, tasks) {
+                var self = this;
+
+                self.<b>on_output</b>(rs, {role:role, tasks:tasks});
+            },
+
+            /* ************* POST ************** */
+
+           <b>on_post_validate</b>:function (rs) {
+                var self = this;
+                this.models.member.can(rs, ['admin site'], function (err, can) {
+                    if (err) {
+                        <i>self.emit('validate_error', rs, err);</i>
+                    } else if (can) {
+                        if (rs.has_content('role')) {
+                            self.<b>on_post_input</b>(rs);
+                        } else {
+                            <i>self.emit('post_error', rs, 'no role passed');</i>
+                        }
+                    } else {
+                        <i>self.emit('validate_error', rs, 'you are not authorized to see this page')</i>
+                    }
+                })
+            },
+
+            <b>on_post_input</b>:function (rs) {
+                var self = this;
+                self.<b>on_post_process</b>(rs, rs.req_props.role);
+            },
+
+            <b>on_post_process</b>:function (rs, role) {
+                var self = this;
+                this.model().revise(role, function (err, role_record) {
+                    if (err) {
+                        rs.flash('error', err.message);
+                    } else {
+                        rs.flash('info', 'role ' + role.name + ' updated');
+                    }
+                    rs.go('/admin/member_roles');
+                })
+            }
+
+        }
+    </pre>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+
+.row {
+    width: 100%;
+    border-top: 1px solid black;
+}
+
+.row .cell {
+    width: 20%;
+    display: inline-block
+}
+
+.row .cell-short {
+    width: 8%
+}
+.row .callout {
+    width: auto
+}

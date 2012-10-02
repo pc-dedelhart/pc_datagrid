@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>POC DataTable</title>
+<head>
+    <!-- VENDOR JS -->
+    <script src="js/vendor/jquery.min.js"></script>
+    <script src="js/vendor/jquery.currency.js"></script>
+    <script src="js/vendor/angular-1.0.2/angular.js"></script>
+    <script src="js/vendor/underscore/underscore-min.js"></script>
+
+    <!-- CUSTOM CONTENT -->
+    <script src="js/controller.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/dt.css">
+</head>
+
+<body ng-app="dt">
+<div ng-controller="DataTableCtrl">
+    <div class="row">
+        <div class="cell cell-short" ng-click="col='userTransactionId'">
+            ID
+        </div>
+        <div class="cell" ng-click="col='description'">
+            description
+        </div>
+        <div class="cell" ng-click="col='cat_type'">
+            category
+        </div>
+        <div class="cell" ng-click="col='amount'">
+            amount
+        </div>
+    </div>
+    <div ng-repeat="row in data| orderBy: col" class="row">
+        <div ng-switch on="row.flyout">
+            <div ng-switch-when="1">
+                flyout for {{row.userTransactionId }}
+                for {{row.userTransactionId }}. label: <input type="text" ng-model="row.description"/>
+
+                Transaction Category:
+                <select autocomplete="off" ng-model="row.category.transactionCategoryId"
+                        ng-change="type_to_data(row)"
+                        >
+                    <option ng-repeat="c in categories | foo:row.category.type"       ng-selected="row.category.transactionCategoryID == c.transactionCateogryId"
+                            >{{c.name }}
+                    </option>
+                </select>
+
+                <button ng-click="flyout_done(row)">Done</button>
+            </div>
+            <div ng-switch-default>
+                <div class="cell cell-short">
+                    {{ row.userTransactionId }}
+                </div>
+                <div class="cell">
+                    {{ row.description }}
+                </div>
+                <div class="cell">
+                    {{row.cat_type }}
+                </div>
+                <div class="cell">
+                    {{ row.amount | currency }}
+                </div>
+                <div class="cell">
+                    <button ng-click="fly_me(row)">Flyout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
