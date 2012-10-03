@@ -83,9 +83,12 @@ body {
     background-color: rgb(255, 245, 240);
     overflow: hidden;
     height: 1px;
-    font-size: 150%;
+    font-size: 115%;
 }
 
+input.label-field {
+    width: 25em; margin: 0.5em;
+}
 
 .flyouttall {
     height: 30px;
@@ -95,8 +98,17 @@ body {
     text-align: right;
 }
 
+.group-header {
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 115%
+}
+
 button {
-    border: 1px solid rgb(200,200,200);
-    padding: 2px;
+    border: 1px solid rgb(200,200,100);
+    padding: 2px 4px;
     margin: 1px;
+    font-size: 90%;
+    font-weight: bold;
+    background-color: rgb(255, 245, 220)
 }

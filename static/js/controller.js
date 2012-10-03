@@ -1,4 +1,4 @@
-angular.module('dt', []).filter('cat_of_type', function () {
+angular.module('dt', []).filter('cat_of_type',function () {
     return function (trans, type) {
         //   console.log('type: ', type);
         return _.filter(trans, function (t) {
@@ -6,7 +6,7 @@ angular.module('dt', []).filter('cat_of_type', function () {
             return t.type == type;
         });
     };
-}).filter('cut', function () {
+}).filter('cut',function () {
         return function (value, wordwise, max, tail) {
             if (!value) return '';
 
@@ -24,7 +24,26 @@ angular.module('dt', []).filter('cat_of_type', function () {
 
             return value + (tail || ' …');
         };
-    });
+    }).filter('a_range', function () {
+        return  function (items, mi, mx) {
+
+            if (!(mx == '')) {
+                mx = parseFloat(mx);
+                items = _.filter(items, function (i) {
+                    return i.amount <= mx;
+                })
+            }
+
+            if (!(mi == '')) {
+                mi = parseFloat(mi);
+                items = _.filter(items, function (i) {
+                    return i.amount >= mi;
+                })
+            }
+
+            return items;
+        }
+    })
 
 function DataTableCtrl($scope, $compile, $filter) {
 
@@ -32,16 +51,12 @@ function DataTableCtrl($scope, $compile, $filter) {
     $scope.categories = [];
     $scope.col = 'description';
     $scope.rev = 'reverse';
+    $scope.g = false;
 
     $.get('/api/transaction/getUserTransactions.json').success(function (data) {
         //   console.log('data: ', data);
         $scope.data = data.spData;
         $scope.update_cat();
-        setTimeout(function () {
-            $('.tt').tipTip();
-            // see http://code.drewwilson.com/entry/tiptip-jquery-plugin
-
-        }, 1500)
     });
 
     $.get('/api/transaction/getTransactionCategories.json', function (data) {
@@ -49,12 +64,68 @@ function DataTableCtrl($scope, $compile, $filter) {
         $scope.update_cat();
     });
 
+    $scope.tim = function(){
+        if ($scope.data.length && $scope.categories.length){
+
+            $('.tt').tipTip();
+            $scope.$digest();
+        }
+    }
     $scope.sort_col = function (c) {
         if (c == $scope.col) {
             $scope.rev = !$scope.rev;
         } else {
             $scope.col = c;
         }
+    }
+
+    $scope.grouped_data = function () {
+        //@TODO: reactive sorts based on col
+
+        return _.values(_.reduce($scope.data, function (tally, row) {
+            var c = row.category;
+            if (!c) {
+                return tally; // skip row.
+            }
+
+            if (tally.hasOwnProperty(c.name)) {
+                tally[c.name].items.push(row);
+            } else {
+                tally[c.name] = {
+                    category:c,
+                    header:c.name,
+                    items:[row]
+                }
+            }
+
+            return tally;
+
+        }, {}))
+
+    }
+
+    $scope.summary = function(g){
+        return  _.reduce(_.pluck(g.items, 'amount'), function(s, a){ return s + a}, 0);
+    }
+
+    $scope.$watch('min_amt', function (m) {
+        if ((!($scope.min_amt == '')) && (!($scope.max_amt == ''))) {
+            if ($scope.min_amt > $scope.max_amt) {
+                $scope.max_amt = '';
+            }
+        }
+    });
+    $scope.$watch('max_amt', function (m) {
+        if ((!($scope.min_amt == '')) && (!($scope.max_amt == ''))) {
+            if ($scope.min_amt > $scope.max_amt) {
+                $scope.min_amt = '';
+            }
+        }
+    });
+
+    $scope.clear_mm = function () {
+        $scope.min_amt = '';
+        $scope.max_amt = '';
     }
 
     $scope.fly_me = function (row) {
@@ -71,14 +142,21 @@ function DataTableCtrl($scope, $compile, $filter) {
         row.flyout = 0;
     }
 
+    $scope.min_amt = '';
+    $scope.max_amt = '';
+
     $scope.head_style = function (base_style, col) {
         console.log(base_style, col, $scope.col);
         if (col == $scope.col) {
-            return base_style +  ($scope.rev ? ' cell-desc' : ' cell-asc') + ' cell-grad ' ;
+            return base_style + ($scope.rev ? ' cell-desc' : ' cell-asc') + ' cell-grad ';
         } else {
             return base_style + ' cell-grad ';
         }
     }
+
+    $scope.$watch('g', function (v) {
+        console.log('g: ', v)
+    })
 
     $scope.update_cat = function () {
         if ($scope.data.length && $scope.categories.length) {
@@ -94,12 +172,12 @@ function DataTableCtrl($scope, $compile, $filter) {
                     d.category = c;
                     d.category_type = c.type;
                     d.category_name = c.name;
-                    console.log('d = ', d);
                 }
             })
+           $scope.tim();
         }
-        $scope.$digest();
     };
+
     /*
      $scope.type_to_data = function (row) {
      if (!row){
